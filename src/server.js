@@ -34,10 +34,12 @@ app.get('/excel', (req, res) => {
   const workbook = new ExcelJS.Workbook();
   
   // 시트 생성('시트이름')
-  const worksheet = workbook.addWorksheet('first sheet');
+  const worksheet1 = workbook.addWorksheet('굿 시트1');
+
+  const worksheet2 = workbook.addWorksheet('굿 시트2');
   
   // 특정 셀에 값넣기
-  worksheet.getCell('A1').value = '엑셀 특정 셀에 값 넣기';
+  worksheet1.getCell('A1').value = '엑셀 특정 셀에 값 넣기';
   
   const fileName = "newSaveeee" + Date.now() + ".xlsx";
   const filePath = path.join(process.cwd(), fileName);
@@ -62,6 +64,29 @@ app.get('/excel', (req, res) => {
     .catch(err => {
       console.log(err);
     });
+})
+
+
+
+app.get('/json', (req, res) => {
+  const data = [
+    {
+      id: 1,
+      name: 'Jamey',
+      DOB: '2022-12-25',
+    },
+    {
+      id: 2,
+      name: 'Jimmy',
+      DOB: '2100-01-10',
+    },
+    {
+      id: 3,
+      name: 'Jesus',
+      DOB: '2000-12-25',
+    },
+  ];
+  res.json(data)
 })
 
 // 모두 안걸리는 것 404 페이지 처리

@@ -1,5 +1,7 @@
 # exceljs 사용법
 
+- github 저장소: https://github.com/mkp0131/exceljs-sample
+
 ## 세팅
 
 - cdn 모음: https://cdnjs.com/libraries/exceljs
@@ -115,3 +117,56 @@ fetch('/excel').then( res => res.blob() )
   window.URL.revokeObjectURL(url);
 });
 ```
+
+### 📌 사용팁!
+
+#### CSS 추가하여 값 입력하기!
+
+```js
+worksheet.getCell('A2').value = {
+  richText: [{ text: 'css 추가합니다요',
+  font: { size: 15, color: { argb: 'A52A2A' } } }],
+};
+```
+
+#### Table 넣기
+
+##### Header 세팅하기!
+
+- columns는 엑셀의 필드값을 지정해준다. header에 필드명, key값은 해당 Header의 키값으로 나중에 데이터를 넣을 때 이 키를 기준으로 데이터가 쏙쏙 맞춰서 들어가기 때문에 중요
+
+```js
+worksheet.columns = [
+  { header: 'Id', key: 'id', width: 10 },
+  { header: 'Name', key: 'name', width: 32 },
+  { header: 'D.O.B.', key: 'DOB', width: 10, outlineLevel: 1 },
+];
+```
+
+##### insert Rows 
+
+```js
+const data = [
+  {
+    id: 1,
+    name: 'Jamey',
+    DOB: '2022-12-25',
+  },
+  {
+    DOB: '2100-01-10',
+    name: 'Jimmy',
+    id: 2,
+  },
+  {
+    id: 3,
+    name: 'Jesus',
+    DOB: '2000-12-25',
+  },
+];
+
+// 한줄만 넣고 싶을 경우
+worksheet.insertRow(2, { id: 0, name: 'Jenny', DOB: '2020-11-11' });
+// 많은 줄을 넣고 싶을 경우 Rows를 사용한다.
+worksheet.insertRows(3, data);
+```
+
